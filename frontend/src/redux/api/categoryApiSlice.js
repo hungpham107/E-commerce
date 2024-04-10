@@ -1,6 +1,6 @@
 import { apiSlice } from "./apiSlice";
 import { CATEGORY_URL } from "../constants";
-import { bindActionCreators } from "@reduxjs/toolkit";
+
 export const categoryApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createCategory: builder.mutation({
@@ -10,6 +10,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
         body: newCategory,
       }),
     }),
+
     updateCategory: builder.mutation({
       query: ({ categoryId, updatedCategory }) => ({
         url: `${CATEGORY_URL}/${categoryId}`,
@@ -17,17 +18,20 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
         body: updatedCategory,
       }),
     }),
+
     deleteCategory: builder.mutation({
       query: (categoryId) => ({
         url: `${CATEGORY_URL}/${categoryId}`,
         method: "DELETE",
       }),
     }),
+
     fetchCategories: builder.query({
       query: () => `${CATEGORY_URL}/categories`,
     }),
   }),
 });
+
 export const {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
