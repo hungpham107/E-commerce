@@ -92,11 +92,6 @@ const Login = () => {
             </p>
           </div>
         </div>
-        <img
-          src="https://i.pinimg.com/564x/20/a4/59/20a459f14e8ca9b0a00258e10b960aed.jpg"
-          alt=""
-          className="h-[65rem] w-[59%] xl:block md:hidden sm:hidden rounded-lg"
-        />
       </section>
     </div>
   );

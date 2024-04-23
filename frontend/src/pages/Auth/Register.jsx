@@ -116,11 +116,6 @@ const Register = () => {
           </p>
         </div>
       </div>
-      <img
-        src="https://i.pinimg.com/564x/b5/fe/8f/b5fe8f35166325331524e6479e535be6.jpg"
-        alt=""
-        className="h-[65rem] w-[59%] xl:block md:hidden sm:hidden rounded-lg"
-      />
     </section>
   );
 };

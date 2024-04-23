@@ -38,7 +38,7 @@ const ProductCard = ({ p }) => {
           <h5 className="mb-0.5 text-xl text-white h-3 ">{p?.name}</h5>
           <p className="text-black font-semibold text-pink-500">${p?.price}</p>
         </div>
-        <p className="mb-3 font-normal text-[#CFCFCF]">
+        <p className="mb-3 font-normal text-[#CFCFCF] mt-10">
           {p?.description.substring(0, 100) + "..."}
         </p>
 

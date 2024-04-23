@@ -196,6 +196,7 @@ const Order = () => {
                     createOrder={createOrder}
                     onApprove={onApprove}
                     onError={onError}
+                    style={{ layout: "horizontal" }}
                   ></PayPalButtons>
                 </div>
               </div>
