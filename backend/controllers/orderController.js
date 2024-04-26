@@ -1,12 +1,13 @@
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
+import nodemailer from "nodemailer";
 //Utility Function
 function calcPrices(orderItems) {
   const itemsPrice = orderItems.reduce(
     (acc, item) => acc + item.price * item.qty,
     0
   );
-  const shippingPrice = itemsPrice > 100 ? 0 : 10;
+  const shippingPrice = itemsPrice > 1000 ? 0 : 50;
   const taxRate = 0.1;
   const taxPrice = (itemsPrice * taxRate).toFixed(2);
   const totalPrice = (
@@ -21,6 +22,45 @@ function calcPrices(orderItems) {
     totalPrice,
   };
 }
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "pvhh1072002@gmail.com",
+    pass: "sqft kutv qowx rvpk",
+  },
+});
+const sendPaymentConfirmationEmail = async (
+  emailAddress,
+  orderId,
+  orderItems,
+  totalPrice
+) => {
+  try {
+    // Tạo nội dung email với thông tin chi tiết về các sản phẩm
+    let emailContent = `<p>Thank you for your payment. Your order ID is ${orderId}.</p>`;
+    emailContent += "<p>Here is the list of products:</p>";
+    emailContent += "<ul>";
+    orderItems.forEach((item) => {
+      emailContent += `<li>${item.name} - Quantity: ${item.qty} - Price: $${(
+        item.price * item.qty
+      ).toFixed(2)}</li>`;
+    });
+    emailContent += "</ul>";
+    emailContent += `<p>Total Price: $${totalPrice}</p>`;
+
+    // Gửi email
+    await transporter.sendMail({
+      from: "pvh1072002@gmail.com",
+      to: "pvh1072002@gmail.com",
+      subject: "Payment Confirmation",
+      html: emailContent,
+    });
+    console.log("Payment confirmation email sent successfully");
+  } catch (error) {
+    console.error("Error sending payment confirmation email:", error);
+  }
+};
+
 const createOrder = async (req, res) => {
   try {
     const { orderItems, shippingAddress, paymentMethod } = req.body;
@@ -157,6 +197,19 @@ const markOrderAsPaid = async (req, res) => {
         email_address: req.body.payer.email_address,
       };
       const updateOrder = await order.save();
+      const { email } = req.body;
+      const orderId = req.params.id;
+      const orderItems = order.orderItems;
+      const totalPrice = order.totalPrice;
+
+      // Gửi email thông báo thanh toán thành công với thông tin chi tiết về sản phẩm
+      await sendPaymentConfirmationEmail(
+        email,
+        orderId,
+        orderItems,
+        totalPrice
+      );
+
       res.status(200).json(updateOrder);
     } else {
       res.status(404);

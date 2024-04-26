@@ -95,7 +95,7 @@ const Shipping = () => {
                   onChange={(e) => setPaymentMethod(e.target.value)}
                 />
 
-                <span className="ml-2">PayPal or Credit Card</span>
+                <span className="ml-2">PayPal </span>
               </label>
             </div>
           </div>

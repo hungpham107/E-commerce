@@ -97,7 +97,7 @@ const Cart = () => {
                     disabled={cartItems.length === 0}
                     onClick={checkoutHandler}
                   >
-                    Proceed To Checkout
+                    Order confirmation
                   </button>
                 </div>
               </div>

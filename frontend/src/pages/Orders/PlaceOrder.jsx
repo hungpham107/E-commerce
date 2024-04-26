@@ -112,8 +112,8 @@ const PlaceOrder = () => {
                 <strong className="text-white">Address:</strong>
                 <span className="text-white">
                   {cart.shippingAddress.address},{cart.shippingAddress.city},{" "}
-                  {cart.shippingAddress.postalCode}, {cart.shippingAddress.city}
-                  , {cart.shippingAddress.country}
+                  {cart.shippingAddress.postalCode},{" "}
+                  {cart.shippingAddress.country}
                 </span>
               </p>
             </div>

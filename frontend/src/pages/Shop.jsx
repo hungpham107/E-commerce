@@ -100,7 +100,7 @@ const Shop = () => {
             </div>
 
             <h2 className="h4 text-center py-2 text-white bg-black rounded-full mb-1">
-              Filter by Brands
+              Filter by Brand
             </h2>
 
             <div className="p-5">
@@ -126,7 +126,7 @@ const Shop = () => {
             </div>
 
             <h2 className="h4 text-center py-2 bg-black rounded-full mb-1 text-white">
-              Filter by Price
+              Search by Price
             </h2>
 
             <div className="p-5 w-[15rem]">
