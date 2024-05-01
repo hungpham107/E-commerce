@@ -24,6 +24,9 @@ const AdminDashboard = () => {
       },
       tooltip: {
         theme: "dark",
+        formatter: function (val) {
+          return "$ " + val.toFixed(2);
+        },
       },
       colors: ["#00E396"],
       dataLabels: {
@@ -44,9 +47,6 @@ const AdminDashboard = () => {
       },
       xaxis: {
         categories: [],
-        title: {
-          text: "Date",
-        },
       },
       yaxis: {
         title: {
@@ -126,17 +126,13 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="ml-[10rem] mt-[4rem]">
+        <div className="ml-[10rem] ">
           <Chart
             options={state.options}
             series={state.series}
             type="bar"
             width="70%"
           />
-        </div>
-
-        <div className="mt-[4rem]">
-          <OrderList />
         </div>
       </section>
     </>

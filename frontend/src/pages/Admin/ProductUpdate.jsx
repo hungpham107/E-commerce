@@ -168,7 +168,7 @@ const ProductUpdate = () => {
             </label>
             <textarea
               type="text"
-              className="p-2 mb-3 bg-[#ffffff] border rounded-lg w-[95%] "
+              className="p-2 mb-3 bg-[#ffffff] border rounded-lg w-[95%] h-[80px] "
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -190,6 +190,7 @@ const ProductUpdate = () => {
                   className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#ffffff]"
                   onChange={(e) => setCategory(e.target.value)}
                 >
+                  <option value="other">Select</option>
                   {categories?.map((c) => (
                     <option key={c._id} value={c._id}>
                       {c.name}

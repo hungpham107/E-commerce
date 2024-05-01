@@ -30,13 +30,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 const sendPaymentConfirmationEmail = async (
-  emailAddress,
   orderId,
   orderItems,
   totalPrice
 ) => {
   try {
-    // Tạo nội dung email với thông tin chi tiết về các sản phẩm
     let emailContent = `<p>Thank you for your payment. Your order ID is ${orderId}.</p>`;
     emailContent += "<p>Here is the list of products:</p>";
     emailContent += "<ul>";
@@ -48,7 +46,6 @@ const sendPaymentConfirmationEmail = async (
     emailContent += "</ul>";
     emailContent += `<p>Total Price: $${totalPrice}</p>`;
 
-    // Gửi email
     await transporter.sendMail({
       from: "pvh1072002@gmail.com",
       to: "pvh1072002@gmail.com",
