@@ -23,9 +23,13 @@ const Login = () => {
   }, [navigate, redirect, userInfo]);
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      toast.error("Please enter your full email and password.");
+      return;
+    }
     try {
       const res = await login({ email, password }).unwrap();
-      console.log(res);
+
       dispatch(setCredientials({ ...res }));
     } catch (err) {
       toast.error(err?.data?.message || err.message);

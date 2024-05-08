@@ -24,6 +24,8 @@ const UserList = () => {
     if (window.confirm("Are you sure?")) {
       try {
         await deleteUser(id);
+        toast.success("Remove user successfully");
+        refetch();
       } catch (eror) {
         toast.error(error?.data.message || error.error);
       }

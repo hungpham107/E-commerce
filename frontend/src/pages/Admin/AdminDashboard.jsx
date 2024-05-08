@@ -8,7 +8,6 @@ import {
 
 import { useState, useEffect } from "react";
 import AdminMenu from "./AdminMenu";
-import OrderList from "./OrderList";
 import Loader from "../../components/Loader";
 
 const AdminDashboard = () => {

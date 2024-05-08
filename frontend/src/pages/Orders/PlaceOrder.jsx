@@ -31,7 +31,7 @@ const PlaceOrder = () => {
       }).unwrap();
       dispatch(clearCartItems());
       navigate(`/order/${res._id}`);
-    } catch (error) {
+    } catch (error) {``
       toast.error(error);
     }
   };

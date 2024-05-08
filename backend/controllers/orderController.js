@@ -47,7 +47,7 @@ const sendPaymentConfirmationEmail = async (
     emailContent += `<p>Total Price: $${totalPrice}</p>`;
 
     await transporter.sendMail({
-      from: "pvh1072002@gmail.com",
+      from: "pvhh1072002@gmail.com",
       to: "pvh1072002@gmail.com",
       subject: "Payment Confirmation",
       html: emailContent,
@@ -63,8 +63,7 @@ const createOrder = async (req, res) => {
     const { orderItems, shippingAddress, paymentMethod } = req.body;
 
     if (orderItems && orderItems.length === 0) {
-      res.status(400);
-      throw new Error("No order items");
+      res.status(400).json({ message: "No order items" });
     }
 
     const itemsFromDB = await Product.find({
@@ -77,13 +76,13 @@ const createOrder = async (req, res) => {
       );
 
       if (!matchingItemFromDB) {
-        res.status(404);
-        throw new Error(`Product not found: ${itemFromClient._id}`);
+        res
+          .status(404)
+          .json({ message: `Product not found: ${itemFromClient._id}` });
       }
-
       return {
         ...itemFromClient,
-        product: itemFromClient._id,
+        product: matchingItemFromDB._id,
         price: matchingItemFromDB.price,
         _id: undefined,
       };
@@ -174,8 +173,7 @@ const findOrderById = async (req, res) => {
     if (order) {
       res.json(order);
     } else {
-      res.status(404);
-      throw new Error("Order not found");
+      res.status(404).json({ message: "Order not found" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -193,24 +191,16 @@ const markOrderAsPaid = async (req, res) => {
         update_time: req.body.update_time,
         email_address: req.body.payer.email_address,
       };
-      const updateOrder = await order.save();
-      const { email } = req.body;
-      const orderId = req.params.id;
+      const payOrder = await order.save();
+
       const orderItems = order.orderItems;
       const totalPrice = order.totalPrice;
 
-      // Gửi email thông báo thanh toán thành công với thông tin chi tiết về sản phẩm
-      await sendPaymentConfirmationEmail(
-        email,
-        orderId,
-        orderItems,
-        totalPrice
-      );
+      await sendPaymentConfirmationEmail(req.params.id, orderItems, totalPrice);
 
-      res.status(200).json(updateOrder);
+      res.status(200).json(payOrder);
     } else {
-      res.status(404);
-      throw new Error("Order not found");
+      res.status(404).json({ message: "Order not found" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -225,8 +215,7 @@ const markOrderAsDeliverd = async (req, res) => {
       const updatedOrder = await order.save();
       res.json(updatedOrder);
     } else {
-      res.status(404);
-      throw new Error("Order not found");
+      res.status(404).json({ message: "Order not found" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

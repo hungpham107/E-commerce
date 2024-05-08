@@ -2,10 +2,10 @@ import express from "express";
 import {
   createUser,
   loginUser,
-  logoutCurrentUser,
+  logoutUser,
   getAllUsers,
-  getCurrentProfile,
-  updateCurrentUserProfile,
+  getProfile,
+  updaterProfile,
   deleteUserbyId,
   getUserById,
   updateUserById,
@@ -21,11 +21,11 @@ router
 
 //localhost:5000/api/users/auth
 router.post("/auth", loginUser);
-router.post("/logout", logoutCurrentUser);
+router.post("/logout", logoutUser);
 router
   .route("/profile")
-  .get(authenticate, getCurrentProfile)
-  .put(authenticate, updateCurrentUserProfile);
+  .get(authenticate, getProfile)
+  .put(authenticate, updaterProfile);
 //admin routes
 router
   .route("/:id")

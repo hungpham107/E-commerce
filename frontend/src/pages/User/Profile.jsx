@@ -66,7 +66,7 @@ const Profile = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block mb-2">Passowrd</label>
+              <label className="block mb-2">Password</label>
               <input
                 type="password"
                 className="form-input p-4 rounded-sm w-full"

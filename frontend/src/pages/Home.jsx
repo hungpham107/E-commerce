@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "../redux/api/productApiSlice";
 import Loader from "../components/Loader";
 import Header from "../components/Header";
@@ -6,12 +6,11 @@ import Message from "../components/Message";
 import Product from "./Products/Product";
 
 const Home = () => {
-  const { keyword } = useParams();
-  const { data, isLoading, isError } = useGetProductsQuery({ keyword });
+  const { data, isLoading, isError } = useGetProductsQuery();
 
   return (
     <>
-      {!keyword ? <Header /> : null}
+      <Header />
       {isLoading ? (
         <Loader />
       ) : isError ? (
